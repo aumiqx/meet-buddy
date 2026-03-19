@@ -1,0 +1,115 @@
+/* Meet Buddy — In-Meeting Overlay */
+
+#meet-buddy-overlay {
+  position: fixed;
+  bottom: 80px;
+  right: 16px;
+  z-index: 99999;
+  font-family: "Google Sans", "Roboto", system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.mb-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 6px 14px 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mb-status:hover {
+  background: rgba(0, 0, 0, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mb-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.mb-dot.mb-recording {
+  background: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+  animation: mb-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes mb-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+.mb-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.mb-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 6px 10px;
+}
+
+.mb-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mb-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mb-btn-screenshot:hover {
+  background: rgba(219, 83, 75, 0.2);
+  border-color: rgba(219, 83, 75, 0.4);
+  color: #db534b;
+}
+
+.mb-btn-note:hover {
+  background: rgba(74, 123, 247, 0.2);
+  border-color: rgba(74, 123, 247, 0.4);
+  color: #4a7bf7;
+}
+
+.mb-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 6px;
+}
+
+.mb-stats span {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  font-family: "Roboto Mono", monospace;
+  white-space: nowrap;
+}

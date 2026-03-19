@@ -1,0 +1,84 @@
+{
+  "name": "meeting-analysis-swarm",
+  "description": "Multi-agent swarm for real-time meeting analysis",
+  "topology": "hierarchical",
+  "maxAgents": 6,
+  "strategy": "specialized",
+  "consensus": "raft",
+  "agents": [
+    {
+      "id": "coordinator",
+      "type": "task-orchestrator",
+      "role": "Watches meeting transcript and coordinates analysis agents",
+      "instructions": "You are the meeting analysis coordinator. When a new meeting transcript is available, read it using the meet-buddy MCP tools and delegate analysis to specialized agents. Compile all results into a unified report. Wait for the user's approval before any implementation.",
+      "priority": "high"
+    },
+    {
+      "id": "analyst",
+      "type": "researcher",
+      "role": "Extract pain points, priorities, and emotional signals from transcript",
+      "instructions": "Read the meeting transcript and identify: 1) Client pain points (ranked by severity), 2) Stated priorities and deadlines, 3) Emotional signals (frustration, excitement, hesitation), 4) Unanswered questions. Output a structured pain_points analysis.",
+      "dependsOn": ["coordinator"]
+    },
+    {
+      "id": "solution-mapper",
+      "type": "coder",
+      "role": "Search the active project codebase for relevant solutions",
+      "instructions": "Based on the pain points and requirements identified by the analyst, search the current project codebase for: 1) Existing features that address the needs, 2) Components that could be extended, 3) Gaps that need new development. Map each pain point to a potential technical solution.",
+      "dependsOn": ["analyst"]
+    },
+    {
+      "id": "tasker",
+      "type": "planner",
+      "role": "Create implementation plan with prioritized tasks",
+      "instructions": "Using the solution mapper's findings, create a prioritized implementation plan: 1) Quick wins (can be done in < 1 hour), 2) Medium tasks (1-4 hours), 3) Large features (> 4 hours). Include file paths, function names, and specific changes needed. Format as a checklist.",
+      "dependsOn": ["solution-mapper"]
+    },
+    {
+      "id": "researcher",
+      "type": "researcher",
+      "role": "Research competing tools, technologies, and solutions mentioned",
+      "instructions": "Identify any tools, technologies, competitors, or approaches mentioned in the transcript. Research each one: 1) What it does, 2) How it compares to what we can build, 3) Key features to match or beat, 4) Integration possibilities.",
+      "dependsOn": ["coordinator"]
+    },
+    {
+      "id": "summarizer",
+      "type": "reviewer",
+      "role": "Create executive summary and action items",
+      "instructions": "Compile all agent outputs into a clean executive summary: 1) One-paragraph meeting summary, 2) Top 3 pain points, 3) Recommended next actions, 4) Key decisions needed, 5) Follow-up items. Keep it concise — this is what the user reads first.",
+      "dependsOn": ["analyst", "solution-mapper", "tasker", "researcher"]
+    }
+  ],
+  "workflow": {
+    "trigger": "manual",
+    "steps": [
+      {
+        "action": "read_transcript",
+        "tool": "meeting_transcript",
+        "agent": "coordinator"
+      },
+      {
+        "action": "parallel_analysis",
+        "agents": ["analyst", "researcher"],
+        "parallel": true
+      },
+      {
+        "action": "solution_mapping",
+        "agent": "solution-mapper"
+      },
+      {
+        "action": "task_planning",
+        "agent": "tasker"
+      },
+      {
+        "action": "compile_summary",
+        "agent": "summarizer"
+      },
+      {
+        "action": "present_to_user",
+        "agent": "coordinator",
+        "awaitApproval": true
+      }
+    ]
+  }
+}

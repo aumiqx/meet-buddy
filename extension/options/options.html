@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Meet Buddy — Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+      padding: 40px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      margin-bottom: 32px;
+    }
+    .section {
+      margin-bottom: 24px;
+      padding: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+    .section-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      font-family: monospace;
+    }
+    label {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    input:focus { border-color: rgba(219,83,75,0.4); }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+    }
+    .toggle-label {
+      color: rgba(255,255,255,0.6);
+      font-size: 13px;
+    }
+    .toggle-desc {
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      margin-top: 2px;
+    }
+    input[type="checkbox"] {
+      appearance: none;
+      width: 36px;
+      height: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    input[type="checkbox"]::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+    }
+    input[type="checkbox"]:checked {
+      background: #db534b;
+    }
+    input[type="checkbox"]:checked::after {
+      transform: translateX(16px);
+    }
+    .btn-save {
+      background: #db534b;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 16px;
+    }
+    .btn-save:hover { background: #c44840; }
+    .saved {
+      color: #10b981;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .saved.show { opacity: 1; }
+    .info {
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>meet buddy</h1>
+  <p class="subtitle">settings</p>
+
+  <div class="section">
+    <div class="section-title">github</div>
+    <label>GitHub App Client ID</label>
+    <input type="text" id="client-id" placeholder="Iv1.abc123..." />
+    <p class="info">Create a GitHub App at github.com/settings/apps</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">sync</div>
+    <label>Push interval (seconds)</label>
+    <input type="number" id="push-interval" value="30" min="10" max="120" />
+
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Auto-start on Meet</div>
+        <div class="toggle-desc">Automatically start recording when joining a Google Meet call</div>
+      </div>
+      <input type="checkbox" id="auto-start" />
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">screenshots</div>
+    <label>JPEG quality (1-100)</label>
+    <input type="number" id="ss-quality" value="65" min="10" max="100" />
+    <p class="info">Lower = smaller files. 65 is a good balance.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">local sync (for mcp server)</div>
+    <label>Local meetings directory</label>
+    <input type="text" id="local-dir" placeholder="~/.meet-buddy/meetings" />
+    <p class="info">Optional: also save meeting data locally for the MCP server</p>
+  </div>
+
+  <button class="btn-save" id="btn-save">Save Settings</button>
+  <p class="saved" id="saved-msg">Settings saved</p>
+
+  <script src="options.js"></script>
+</body>
+</html>

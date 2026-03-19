@@ -1,0 +1,25 @@
+{
+  "name": "meet-buddy",
+  "version": "1.0.0",
+  "description": "Real-time meeting intelligence that syncs with your dev workflow. Chrome Extension + MCP Server for Claude Code.",
+  "author": "aumiqx",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aumiqx/meet-buddy"
+  },
+  "scripts": {
+    "build:mcp": "cd mcp-server && npm run build",
+    "dev:mcp": "cd mcp-server && npm run dev",
+    "start:mcp": "cd mcp-server && npm start"
+  },
+  "keywords": [
+    "meeting",
+    "ai",
+    "chrome-extension",
+    "mcp",
+    "claude",
+    "transcription",
+    "google-meet"
+  ]
+}
